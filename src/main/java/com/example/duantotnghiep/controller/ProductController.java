@@ -3,6 +3,7 @@ package com.example.duantotnghiep.controller;
 import com.example.duantotnghiep.dto.request.ProductRequest;
 import com.example.duantotnghiep.dto.request.ProductSearchRequest;
 import com.example.duantotnghiep.dto.response.PaginationDTO;
+import com.example.duantotnghiep.dto.response.ProductDetailResponse;
 import com.example.duantotnghiep.dto.response.ProductResponse;
 import com.example.duantotnghiep.dto.response.ProductSearchResponse;
 import com.example.duantotnghiep.service.ProductService;
@@ -62,11 +63,15 @@ public class ProductController {
         return ResponseEntity.ok(productResponses);
     }
 
-
     // GET BY ID
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponse> getProductById(@PathVariable Long id) {
         return ResponseEntity.ok(productService.getProductById(id));
+    }
+
+    @GetMapping("/product-detail/{idProduct}")
+    public ResponseEntity<List<ProductDetailResponse>> getProductDetailById(@PathVariable Long idProduct) {
+        return ResponseEntity.ok(productService.getProductDetailById(idProduct));
     }
 
     // CREATE
@@ -87,12 +92,9 @@ public class ProductController {
     // DELETE
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteProduct(@PathVariable Long id) {
-       try {
-           productService.deleteProduct(id);
-           return ResponseEntity.ok("Xóa thành công");
-       }catch (Exception e){
-           throw new RuntimeException("Lỗi xóa");
-       }
+
+        productService.deleteProduct(id);
+        return ResponseEntity.ok("Xóa thành công");
     }
 
     @GetMapping("/qrcode/{code}")
@@ -110,6 +112,9 @@ public class ProductController {
     public ResponseEntity<PaginationDTO<ProductSearchResponse>> searchProducts(
             @RequestBody ProductSearchRequest request) {
 
+        System.out.println("from: "+request.getCreatedFrom());
+        System.out.println("To: "+request.getCreatedTo());
+
         int page = request.getPage() != null ? request.getPage() : 0;
         int size = request.getSize() != null ? request.getSize() : 5;
 
@@ -122,7 +127,7 @@ public class ProductController {
         return ResponseEntity.ok(result);
     }
 
-    @PostMapping ("/export")
+    @PostMapping ("/export-excel")
     public void exportExcel(@RequestBody ProductSearchRequest dto, HttpServletResponse response) {
         try {
             response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");

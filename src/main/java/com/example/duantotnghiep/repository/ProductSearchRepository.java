@@ -42,9 +42,10 @@ public class ProductSearchRepository {
         Map<String,Object> params = new HashMap<>();
         params.put("status",1);
 
-        if (request.getKeyword() != null && !request.getKeyword().isEmpty()) {
+        String keyword = request.getKeyword() != null ? request.getKeyword().trim() : null;
+        if (keyword != null && !keyword.isEmpty()) {
             whereClause.append(" AND (LOWER(p.productName) LIKE LOWER(:keyword) OR LOWER(p.productCode) LIKE LOWER(:keyword))");
-            params.put("keyword", "%" + request.getKeyword() + "%");
+            params.put("keyword", "%" + keyword + "%");
         }
 
         if (request.getBrandId() != null) {
@@ -80,6 +81,17 @@ public class ProductSearchRepository {
         if (request.getCreatedTo() != null) {
             whereClause.append(" AND (p.createdDate IS NULL OR p.createdDate <= :createdTo)");
             params.put("createdTo", request.getCreatedTo());
+        }
+
+        // Thêm điều kiện tìm theo khoảng giá
+        if (request.getPriceMin() != null) {
+            whereClause.append(" AND (p.sellPrice IS NULL OR p.sellPrice >= :priceMin)");
+            params.put("priceMin", request.getPriceMin());
+        }
+
+        if (request.getPriceMax() != null) {
+            whereClause.append(" AND (p.sellPrice IS NULL OR p.sellPrice <= :priceMax)");
+            params.put("priceMax", request.getPriceMax());
         }
 
         if (request.getCategoryIds() != null && !request.getCategoryIds().isEmpty()) {

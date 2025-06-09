@@ -3,6 +3,7 @@ package com.example.duantotnghiep.service;
 import com.example.duantotnghiep.dto.request.ProductRequest;
 import com.example.duantotnghiep.dto.request.ProductSearchRequest;
 import com.example.duantotnghiep.dto.response.PaginationDTO;
+import com.example.duantotnghiep.dto.response.ProductDetailResponse;
 import com.example.duantotnghiep.dto.response.ProductResponse;
 import com.example.duantotnghiep.dto.response.ProductSearchResponse;
 import org.springframework.data.domain.Page;
@@ -22,6 +23,9 @@ public interface ProductService {
     void deleteProduct(Long id);
 
     ProductResponse getProductById(Long id);
+
+    List<ProductDetailResponse> getProductDetailById(Long productId);
+    ProductDetailResponse getProductDetail(Long id);
 
     Page<ProductResponse> getAllProducts(Pageable pageable);
 

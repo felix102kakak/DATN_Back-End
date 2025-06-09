@@ -13,7 +13,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Nationalized;
 
+import javax.management.relation.Role;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,7 +28,6 @@ import java.time.Instant;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private Long id;
 
     @Size(max = 50)
@@ -52,10 +55,10 @@ public class Customer {
     private String phone;
 
     @Column(name = "gender")
-    private Integer gender;
+    private Boolean gender;
 
     @Column(name = "date_of_birth")
-    private Instant dateOfBirth;
+    private LocalDateTime  dateOfBirth;
 
     @Size(max = 100)
     @Nationalized
@@ -86,10 +89,10 @@ public class Customer {
     private Integer status;
 
     @Column(name = "created_date")
-    private Instant createdDate;
+    private LocalDateTime createdDate;
 
     @Column(name = "updated_date")
-    private Instant updatedDate;
+    private LocalDateTime  updatedDate;
 
     @Size(max = 50)
     @Column(name = "created_by", length = 50)
@@ -98,5 +101,6 @@ public class Customer {
     @Size(max = 50)
     @Column(name = "updated_by", length = 50)
     private String updatedBy;
+
 
 }
