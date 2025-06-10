@@ -1,24 +1,17 @@
 package com.example.duantotnghiep.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Nationalized;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -45,7 +38,7 @@ public class Employee {
 
     @NotNull
     @Column(name = "date_of_birth", nullable = false)
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
 
 
     @NotNull
@@ -69,7 +62,7 @@ public class Employee {
 
     @NotNull
     @Column(name = "hire_date", nullable = false)
-    private Instant hireDate;
+    private LocalDate hireDate;
 
     @Size(max = 200)
     @NotNull
@@ -106,10 +99,10 @@ public class Employee {
     private Integer status;
 
     @Column(name = "created_date")
-    private Instant createdDate;
+    private LocalDate createdDate;
 
     @Column(name = "updated_date")
-    private Instant updatedDate;
+    private LocalDate updatedDate;
 
     @Size(max = 50)
     @Column(name = "created_by", length = 50)
@@ -118,5 +111,10 @@ public class Employee {
     @Size(max = 50)
     @Column(name = "updated_by", length = 50)
     private String updatedBy;
+//    @ManyToOne
+//    @JoinColumn(name = "role_id", nullable = false)
+//    private Role role;
+    @Column(name = "role_id", nullable = false)
+    private Long roleId = 1L;
 
 }

@@ -1,6 +1,5 @@
 package com.example.duantotnghiep.model;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -21,7 +20,6 @@ import lombok.Setter;
 import org.hibernate.annotations.Nationalized;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
@@ -68,7 +66,7 @@ public class Product {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sole_id")
-    private Sole sole;
+    private Role role;
 
     @NotNull
     @Column(name = "origin_price", nullable = false, precision = 18, scale = 3)

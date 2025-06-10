@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Nationalized;
 
-import java.time.Instant;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -23,7 +22,7 @@ import java.util.Date;
 @Setter
 @Entity
 @Table(name = "sole")
-public class Sole {
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

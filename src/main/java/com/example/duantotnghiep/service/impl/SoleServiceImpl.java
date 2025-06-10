@@ -1,12 +1,9 @@
 package com.example.duantotnghiep.service.impl;
 
-import com.example.duantotnghiep.model.Brand;
-import com.example.duantotnghiep.model.Size;
-import com.example.duantotnghiep.model.Sole;
+import com.example.duantotnghiep.model.Role;
 import com.example.duantotnghiep.repository.SoleRepository;
 import com.example.duantotnghiep.service.SoleService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -19,35 +16,35 @@ public class SoleServiceImpl implements SoleService {
     private final SoleRepository soleRepository;
 
     @Override
-    public List<Sole> getAll() {
+    public List<Role> getAll() {
         return soleRepository.findByStatus();
     }
 
     @Override
-    public Sole them(String name) {
-        Sole b = new Sole();
+    public Role them(String name) {
+        Role b = new Role();
         b.setSoleCode(generateCode());
         b.setSoleName(name);
         b.setStatus(1);
         b.setCreatedDate(new Date());
         b.setCreatedBy("admin");
-        Sole saved = soleRepository.save(b);
+        Role saved = soleRepository.save(b);
         return saved;
     }
 
     @Override
-    public Sole sua(Long id, String name) {
-        Sole b = soleRepository.findById(id).orElse(null);
+    public Role sua(Long id, String name) {
+        Role b = soleRepository.findById(id).orElse(null);
         b.setSoleName(name);
         b.setUpdatedBy("admin");
         b.setUpdatedDate(new Date());
-        Sole updated= soleRepository.save(b);
+        Role updated= soleRepository.save(b);
         return updated;
     }
 
     @Override
     public void xoa(Long id) {
-        Sole b = soleRepository.findById(id).orElse(null);
+        Role b = soleRepository.findById(id).orElse(null);
         b.setUpdatedDate(new Date());
         b.setStatus(0);
         soleRepository.save(b);

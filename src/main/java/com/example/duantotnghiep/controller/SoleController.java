@@ -1,9 +1,7 @@
 package com.example.duantotnghiep.controller;
 
-import com.example.duantotnghiep.model.Sole;
-import com.example.duantotnghiep.model.Style;
+import com.example.duantotnghiep.model.Role;
 import com.example.duantotnghiep.service.SoleService;
-import com.example.duantotnghiep.service.StyleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,26 +23,26 @@ public class SoleController {
     private SoleService service;
 
     @GetMapping("/hien-thi")
-    public ResponseEntity<List<Sole>> getAll(){
-        List<Sole> list = service.getAll();
+    public ResponseEntity<List<Role>> getAll(){
+        List<Role> list = service.getAll();
         return ResponseEntity.ok(list);
     }
 
     // Thêm loại đế
     @PostMapping
-    public ResponseEntity<Sole> addSole(@RequestParam String name) {
-        Sole newSole = service.them(name);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newSole);
+    public ResponseEntity<Role> addSole(@RequestParam String name) {
+        Role newRole = service.them(name);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newRole);
     }
 
     // Cập nhật loại đế
     @PutMapping("/{id}")
-    public ResponseEntity<Sole> updateSole(@PathVariable Long id, @RequestParam String name) {
-        Sole updatedSole = service.sua(id, name);
-        if (updatedSole == null) {
+    public ResponseEntity<Role> updateSole(@PathVariable Long id, @RequestParam String name) {
+        Role updatedRole = service.sua(id, name);
+        if (updatedRole == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(updatedSole);
+        return ResponseEntity.ok(updatedRole);
     }
 
     // Xóa loại đế
